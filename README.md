@@ -1,6 +1,7 @@
 # ReadPact
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Login, Sign Up page iig hiisen baigaa 
 
 ### Хуудасууд
@@ -88,6 +89,8 @@ About us
 		1. Имэйл: support@example.com
 		2. Утас: +976-xxxxxxx 
 =======
+=======
+>>>>>>> origin/enkush
 ## Хуудасууд
 
 Home
@@ -194,4 +197,7 @@ About us
 2. Contact
     1. Имэйл: support@example.com
     2. Утас: +976-xxxxxxx
+<<<<<<< HEAD
 >>>>>>> f2ade1e (Change Readme)
+=======
+>>>>>>> origin/enkush
