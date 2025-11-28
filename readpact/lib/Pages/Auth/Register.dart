@@ -1,52 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../Service/theme_service.dart';
+import 'Verify.dart';
 
-class RegisterPage extends StatefulWidget {
+class RegisterWidget extends StatefulWidget {
+  final VoidCallback onToggle;
+  final AppColors colors;
+  const RegisterWidget({
+    super.key,
+    required this.onToggle,
+    required this.colors,
+  });
+
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<RegisterWidget> createState() => _RegisterWidgetState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterWidgetState extends State<RegisterWidget> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   bool _isPasswordObscured = true;
   bool _isConfirmObscured = true;
 
-  Widget buildAppTitle() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Read", style: GoogleFonts.playfairDisplay(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.black)),
-        SizedBox(width: 4),
-        Text("Pact", style: GoogleFonts.playfairDisplay(fontSize: 40, fontWeight: FontWeight.bold, color: Color(0xFF425CAC))),
-      ],
-    );
-  }
-
   Widget buildRegisterHeader() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              child: GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Text("Нэвтрэх", textAlign: TextAlign.center, style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFB0B0B0))),
+    return SizedBox(
+      width: 320,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: widget.onToggle,
+                  child: Text(
+                    "Нэвтрэх",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.inter(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: widget.colors.text.withValues(alpha: 0.5),
+                    ),
+                  ),
+                ),
               ),
-            ),
-            Expanded(child: Text("Бүртгүүлэх", textAlign: TextAlign.center, style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF425CAC)))),
-          ],
-        ),
-        SizedBox(height: 5),
-        Row(
-          children: [
-            Expanded(child: Container(height: 3, color: Color(0xFFD9D9D9))),
-            Expanded(child: Container(height: 3, color: Color(0xFF425CAC))),
-          ],
-        ),
-      ],
+              Expanded(
+                child: Text(
+                  "Бүртгүүлэх",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.inter(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: widget.colors.primary,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 5),
+          Row(
+            children: [
+              Expanded(
+                child: Container(height: 3, color: widget.colors.secondary),
+              ),
+              Expanded(
+                child: Container(height: 3, color: widget.colors.primary),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -54,24 +79,35 @@ class _RegisterPageState extends State<RegisterPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("И-мэйл", style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w600, color: Color(0xFF425CAC), fontStyle: FontStyle.italic)),
+        Text(
+          "И-мэйл",
+          style: GoogleFonts.inter(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: widget.colors.primary,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
         SizedBox(height: 8),
         Container(
-          height: 50,
-          constraints: BoxConstraints(maxWidth: 380),
+          height: 45,
+          constraints: BoxConstraints(maxWidth: 320),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: widget.colors.background,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Color(0xFF425CAC), width: 1.5),
-            boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3))],
+            border: Border.all(color: widget.colors.border, width: 1.5),
           ),
           child: TextField(
             controller: emailController,
             keyboardType: TextInputType.emailAddress,
+            style: GoogleFonts.inter(color: widget.colors.text),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 12),
               hintText: "И-мэйл хаягаа оруулна уу",
-              hintStyle: GoogleFonts.inter(fontSize: 16, color: Colors.grey[500]),
+              hintStyle: GoogleFonts.inter(
+                fontSize: 14,
+                color: widget.colors.text.withValues(alpha: 0.5),
+              ),
               border: InputBorder.none,
             ),
           ),
@@ -84,16 +120,23 @@ class _RegisterPageState extends State<RegisterPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Нууц үг", style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w600, color: Color(0xFF425CAC), fontStyle: FontStyle.italic)),
+        Text(
+          "Нууц үг",
+          style: GoogleFonts.inter(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: widget.colors.primary,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
         SizedBox(height: 8),
         Container(
-          height: 50,
-          constraints: BoxConstraints(maxWidth: 380),
+          height: 45,
+          constraints: BoxConstraints(maxWidth: 320),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: widget.colors.background,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Color(0xFF425CAC), width: 1.5),
-            boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3))],
+            border: Border.all(color: widget.colors.border, width: 1.5),
           ),
           child: Row(
             children: [
@@ -101,17 +144,25 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: TextField(
                   obscureText: _isPasswordObscured,
                   controller: passwordController,
+                  style: GoogleFonts.inter(color: widget.colors.text),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(left: 12, right: 8),
                     hintText: "Нууц үгээ оруулна уу",
-                    hintStyle: GoogleFonts.inter(fontSize: 16, color: Colors.grey[500]),
+                    hintStyle: GoogleFonts.inter(
+                      fontSize: 14,
+                      color: widget.colors.text.withValues(alpha: 0.5),
+                    ),
                     border: InputBorder.none,
                   ),
                 ),
               ),
               IconButton(
-                icon: Icon(_isPasswordObscured ? Icons.visibility_off : Icons.visibility, color: Color(0xFF425CAC)),
-                onPressed: () => setState(() => _isPasswordObscured = !_isPasswordObscured),
+                icon: Icon(
+                  _isPasswordObscured ? Icons.visibility_off : Icons.visibility,
+                  color: widget.colors.primary,
+                ),
+                onPressed: () =>
+                    setState(() => _isPasswordObscured = !_isPasswordObscured),
               ),
             ],
           ),
@@ -124,16 +175,23 @@ class _RegisterPageState extends State<RegisterPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Нууц үг давтах", style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w600, color: Color(0xFF425CAC), fontStyle: FontStyle.italic)),
+        Text(
+          "Нууц үг давтах",
+          style: GoogleFonts.inter(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: widget.colors.primary,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
         SizedBox(height: 8),
         Container(
-          height: 50,
-          constraints: BoxConstraints(maxWidth: 380),
+          height: 45,
+          constraints: BoxConstraints(maxWidth: 320),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: widget.colors.background,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Color(0xFF425CAC), width: 1.5),
-            boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3))],
+            border: Border.all(color: widget.colors.border, width: 1.5),
           ),
           child: Row(
             children: [
@@ -141,17 +199,25 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: TextField(
                   obscureText: _isConfirmObscured,
                   controller: confirmPasswordController,
+                  style: GoogleFonts.inter(color: widget.colors.text),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(left: 12, right: 8),
                     hintText: "Нууц үгээ дахин оруулна уу",
-                    hintStyle: GoogleFonts.inter(fontSize: 16, color: Colors.grey[500]),
+                    hintStyle: GoogleFonts.inter(
+                      fontSize: 14,
+                      color: widget.colors.text.withValues(alpha: 0.5),
+                    ),
                     border: InputBorder.none,
                   ),
                 ),
               ),
               IconButton(
-                icon: Icon(_isConfirmObscured ? Icons.visibility_off : Icons.visibility, color: Color(0xFF425CAC)),
-                onPressed: () => setState(() => _isConfirmObscured = !_isConfirmObscured),
+                icon: Icon(
+                  _isConfirmObscured ? Icons.visibility_off : Icons.visibility,
+                  color: widget.colors.primary,
+                ),
+                onPressed: () =>
+                    setState(() => _isConfirmObscured = !_isConfirmObscured),
               ),
             ],
           ),
@@ -161,14 +227,16 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget buildRegisterButton() {
-    return Container(
-      width: 380,
-      height: 50,
+    return SizedBox(
+      width: 320,
+      height: 45,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 4,
-          backgroundColor: Color(0xFF425CAC),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          backgroundColor: widget.colors.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
         ),
         onPressed: () {
           String email = emailController.text;
@@ -177,25 +245,41 @@ class _RegisterPageState extends State<RegisterPage> {
 
           if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Бүх талбарыг бөглөнө үү'), backgroundColor: Colors.red),
+              SnackBar(
+                content: Text('Бүх талбарыг бөглөнө үү'),
+                backgroundColor: Colors.red,
+              ),
             );
             return;
           }
 
           if (password != confirmPassword) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Нууц үг таарахгүй байна'), backgroundColor: Colors.red),
+              SnackBar(
+                content: Text('Нууц үг таарахгүй байна'),
+                backgroundColor: Colors.red,
+              ),
             );
             return;
           }
 
           print("REGISTER → EMAIL: $email, PASSWORD: $password");
 
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Амжилттай бүртгэгдлээ!'), backgroundColor: Colors.green),
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VerifyPage(colors: widget.colors),
+            ),
           );
         },
-        child: Text("Бүртгүүлэх", style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+        child: Text(
+          "Бүртгүүлэх",
+          style: GoogleFonts.inter(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }
@@ -204,7 +288,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Column(
       children: [
         buildRegisterHeader(),
-        SizedBox(height: 50),
+        SizedBox(height: 40),
         buildEmailField(),
         SizedBox(height: 16),
         buildPasswordField(),
@@ -216,35 +300,34 @@ class _RegisterPageState extends State<RegisterPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Бүртгэлтэй бол", style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w600, color: Color(0xFFD9D9D9))),
+            Text(
+              "Бүртгэлтэй бол",
+              style: GoogleFonts.inter(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: widget.colors.text.withValues(alpha: 0.5),
+              ),
+            ),
             SizedBox(width: 4),
             GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Text("Нэвтрэх", style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF425CAC))),
+              onTap: widget.onToggle,
+              child: Text(
+                "Нэвтрэх",
+                style: GoogleFonts.inter(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: widget.colors.primary,
+                ),
+              ),
             ),
           ],
-        )
+        ),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(24),
-          child: Column(
-            children: [
-              SizedBox(height: 120),
-              buildAppTitle(),
-              SizedBox(height: 120),
-              buildRegisterUI(),
-            ],
-          ),
-        ),
-      ),
-    );
+    return buildRegisterUI();
   }
 }
