@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../Service/theme_service.dart';
+import '../Home.dart';
 
 class LoginWidget extends StatefulWidget {
   final VoidCallback onToggle;
@@ -130,6 +131,10 @@ class _LoginWidgetState extends State<LoginWidget> {
         onPressed: () {
           print("Email: ${emailController.text}");
           print("Password: ${passwordController.text}");
+
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
         },
         child: Text(
           "Нэвтрэх",

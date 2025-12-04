@@ -34,6 +34,46 @@ class AppColors {
     border: Color(0xFF3F3F3F),
     cardBackground: Color(0xFF1A1A1A),
   );
+
+  // Build a ThemeData that matches these colors
+  ThemeData toThemeData(Brightness brightness) {
+    final isDark = brightness == Brightness.dark;
+    return ThemeData(
+      brightness: brightness,
+      primaryColor: primary,
+      scaffoldBackgroundColor: background,
+      cardColor: cardBackground,
+      canvasColor: background,
+      dividerColor: border,
+      appBarTheme: AppBarTheme(
+        backgroundColor: primary,
+        foregroundColor: cardBackground.computeLuminance() > 0.5 ? Colors.black : Colors.white,
+        elevation: 0,
+      ),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primary,
+        brightness: brightness,
+        primary: primary,
+        background: background,
+      ),
+      textTheme: TextTheme(
+        bodyLarge: TextStyle(color: text),
+        bodyMedium: TextStyle(color: text),
+        bodySmall: TextStyle(color: text),
+      ),
+      iconTheme: IconThemeData(color: text),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: secondary,
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: border),
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      // keep visual density and other defaults
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+    );
+  }
 }
 
 class ThemeService extends ChangeNotifier {
@@ -42,6 +82,9 @@ class ThemeService extends ChangeNotifier {
   bool get isDarkMode => _isDarkMode;
 
   AppColors get colors => _isDarkMode ? AppColors.dark : AppColors.light;
+
+  // New: provide ThemeData for MaterialApp / Theme usage
+  ThemeData get themeData => colors.toThemeData(_isDarkMode ? Brightness.dark : Brightness.light);
 
   void toggleTheme() {
     _isDarkMode = !_isDarkMode;

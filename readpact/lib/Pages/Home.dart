@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           height: 200,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -294,6 +294,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   buildHeader(colors, isDarkMode, themeService.toggleTheme),
                   buildCategoryChips(colors),
+                  SizedBox(height: 4),
+                  Container(height: 2, color: colors.text),
                   SizedBox(height: 16),
                   buildBestSellers(colors),
                   SizedBox(height: 16),
